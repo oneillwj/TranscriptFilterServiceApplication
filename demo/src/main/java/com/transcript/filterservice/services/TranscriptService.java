@@ -10,37 +10,42 @@ import java.util.HashMap;
 @Service
 public class TranscriptService {
 
-    public ArrayList<String> cleanTranscriptRequest(TranscriptRequest transcriptRequestDirty, TranscriptRequest ignoreText){
+    private ArrayList<String> dirtyTranscriptRequest(ArrayList<String> transcriptRequestDirty, ArrayList<String> ignoreTextWords){
 
-        ArrayList<String> transcriptWords = (ArrayList<String>) Arrays.asList(transcriptRequestDirty.getText().toLowerCase().split(" "));
-        ArrayList<String> ignoreTextWords = ignoreText.getIgnoreText();
+        ArrayList<String> dirtyTranscriptRequest = transcriptRequestDirty;
 
         for(String ignoreWord: ignoreTextWords){
-            for(String textWord: transcriptWords){
-                if(//transcriptWords.contains(ignoreText.getText())){
-                    //delete word in transcriptwords
-                } else {
-                    //go to next word
+            for(String textWord: dirtyTranscriptRequest){
+               //if currant textWord contains current ignoreWord
+                if(dirtyTranscriptRequest.contains(ignoreWord)){
+                    //delete current textWord in transcript words arraylist
+                    dirtyTranscriptRequest.remove(textWord);
                 }
             }
 
-            //need to figure out a way of getting ignoretext to go to the next word to compare.
         }
 
+        return dirtyTranscriptRequest;
 
     }
 
-    public HashMap<String, Integer> transcribe(TranscriptRequest transcriptRequestClean){
+    public HashMap<String, Integer> transcribe(TranscriptRequest transcriptRequest){
         /*creates an array of Strings and sets it equal to the transcriptRequest
         sets them all to lowercase
         and splits each word in the array per every space*/
-        String[] transcriptWords = transcriptRequestClean.getText().toLowerCase().split(" ");
+        ArrayList<String> dirtyTranscriptWords = (ArrayList<String>) Arrays.asList(transcriptRequest.getText().toLowerCase().split(" "));
+
+        //create arraylist for ignoreText
+        ArrayList<String> ignoreTextWords = transcriptRequest.getIgnoreText();
+
+        //creates arraylist for transcriptRequest after being cleaned in the dirtyTranscriptRequest method above
+        ArrayList<String> cleanTranscriptWords = dirtyTranscriptRequest(dirtyTranscriptWords, ignoreTextWords);
 
         //creates a new hashmap
         HashMap<String, Integer> transcriptMap = new HashMap<>();
 
-        //checks/adds words into the transcriptMap hashmap by using the transcriptWords array.
-        for(String word: transcriptWords){
+        //checks/adds words into the transcriptMap hashmap by using the cleantranscriptwords arraylist
+       for(String word: cleanTranscriptWords){
             if(transcriptMap.containsKey(word)){
                 transcriptMap.put(word, transcriptMap.get(word) + 1);
             } else {

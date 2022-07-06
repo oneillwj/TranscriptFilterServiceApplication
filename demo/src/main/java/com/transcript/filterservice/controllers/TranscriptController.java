@@ -16,7 +16,7 @@ public class TranscriptController {
     private TranscriptService transcriptService;
 
     @PostMapping("/transcribe")
-     public HashMap<String, Integer> transcribeRequest(@RequestBody TranscriptRequest transcriptRequest){
+        public HashMap<String, Integer> transcribeRequest(@RequestBody TranscriptRequest transcriptRequest){
         //uses the transcriptService class and calls the transcribe method and injects transcriptRequest for the information.
         return transcriptService.transcribe(transcriptRequest);
     }
