@@ -6,18 +6,19 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class TranscriptService {
 
-    private ArrayList<String> dirtyTranscriptRequest(ArrayList<String> transcriptRequestDirty, ArrayList<String> ignoreTextWords){
+    protected ArrayList<String> dirtyTranscriptRequest(ArrayList<String> transcriptRequestDirty, ArrayList<String> ignoreTextWords){
 
         ArrayList<String> dirtyTranscriptRequest = transcriptRequestDirty;
 
         for(String ignoreWord: ignoreTextWords){
             for(String textWord: dirtyTranscriptRequest){
                //if currant textWord contains current ignoreWord
-                if(dirtyTranscriptRequest.contains(ignoreWord)){
+                if(textWord.equals(ignoreWord)){
                     //delete current textWord in transcript words arraylist
                     dirtyTranscriptRequest.remove(textWord);
                 }
@@ -33,10 +34,15 @@ public class TranscriptService {
         /*creates an array of Strings and sets it equal to the transcriptRequest
         sets them all to lowercase
         and splits each word in the array per every space*/
-        ArrayList<String> dirtyTranscriptWords = (ArrayList<String>) Arrays.asList(transcriptRequest.getText().toLowerCase().split(" "));
+        ArrayList<String> dirtyTranscriptWords = new ArrayList<>(Arrays.asList(transcriptRequest.getText().toLowerCase().split(" ")));
+
 
         //create arraylist for ignoreText
         ArrayList<String> ignoreTextWords = transcriptRequest.getIgnoreText();
+        //setting words in ignoreTextWords to all lowercase with for loop.
+        for(String word: ignoreTextWords){
+            word = word.toLowerCase();
+        }
 
         //creates arraylist for transcriptRequest after being cleaned in the dirtyTranscriptRequest method above
         ArrayList<String> cleanTranscriptWords = dirtyTranscriptRequest(dirtyTranscriptWords, ignoreTextWords);
