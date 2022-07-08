@@ -6,27 +6,22 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 @Service
 public class TranscriptService {
 
     protected ArrayList<String> dirtyTranscriptRequest(ArrayList<String> transcriptRequestDirty, ArrayList<String> ignoreTextWords){
 
-        ArrayList<String> dirtyTranscriptRequest = transcriptRequestDirty;
+        ArrayList<String> dirtyRequest = new ArrayList<>(transcriptRequestDirty);
 
         for(String ignoreWord: ignoreTextWords){
-            for(String textWord: dirtyTranscriptRequest){
-               //if currant textWord contains current ignoreWord
-                if(textWord.equals(ignoreWord)){
-                    //delete current textWord in transcript words arraylist
-                    dirtyTranscriptRequest.remove(textWord);
-                }
-            }
+            //if currant textWord contains current ignoreWord
+            //delete current textWord in transcript words arraylist
+            dirtyRequest.removeIf(textWord -> textWord.equals(ignoreWord));
 
         }
 
-        return dirtyTranscriptRequest;
+        return dirtyRequest;
 
     }
 
