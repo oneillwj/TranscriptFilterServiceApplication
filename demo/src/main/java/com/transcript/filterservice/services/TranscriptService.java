@@ -1,29 +1,18 @@
 package com.transcript.filterservice.services;
 
 import com.transcript.filterservice.models.TranscriptRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+//import organizationUtil class
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 
 @Service
 public class TranscriptService {
 
-    protected ArrayList<String> dirtyTranscriptRequest(ArrayList<String> transcriptRequestDirty, ArrayList<String> ignoreTextWords){
+    @Autowired
+    private OrganizationUtil organizationUtil;
 
-        ArrayList<String> dirtyRequest = new ArrayList<>(transcriptRequestDirty);
-
-        for(String ignoreWord: ignoreTextWords){
-            //if currant textWord contains current ignoreWord
-            //delete current textWord in transcript words arraylist
-            dirtyRequest.removeIf(textWord -> textWord.equals(ignoreWord));
-
-        }
-
-        return dirtyRequest;
-
-    }
 
     public HashMap<String, Integer> transcribe(TranscriptRequest transcriptRequest){
         /*creates an array of Strings and sets it equal to the transcriptRequest
@@ -54,9 +43,25 @@ public class TranscriptService {
             }
         }
 
+       //if enum value is called in transcript request, call method for requested enum organization
+
         //returns the complete hashmap
         return transcriptMap;
     }
 
+    protected ArrayList<String> dirtyTranscriptRequest(ArrayList<String> transcriptRequestDirty, ArrayList<String> ignoreTextWords){
+
+        ArrayList<String> dirtyRequest = new ArrayList<>(transcriptRequestDirty);
+
+        for(String ignoreWord: ignoreTextWords){
+            //if currant textWord contains current ignoreWord
+            //delete current textWord in transcript words arraylist
+            dirtyRequest.removeIf(textWord -> textWord.equals(ignoreWord));
+
+        }
+
+        return dirtyRequest;
+
+    }
     
 }

@@ -8,6 +8,8 @@ public class TranscriptRequest {
     @JsonProperty("text")
     private String text;
     private ArrayList<String> ignoreText;
+    //add enum for optional sorting values
+    //spring optional value in post body
 
 
     public String getText() {
