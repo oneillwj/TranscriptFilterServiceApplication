@@ -10,18 +10,19 @@ import java.util.List;
 @Component
 public class OrganizationUtil {
 
-
-    protected HashMap<String, Integer> organizeMap(HashMap<String, Integer> unorganizedMap, String type){
-
+    public enum Organizations{
+        GREATESTTOLEAST,
+        LEASTTOGREATEST,
+        ALPHABETICALLY,
+        TOPFIVE,
     }
 
-    protected List<Integer> organizeMapGreatest(HashMap<String, Integer> unorganizedMap){
+   //protected HashMap<String, Integer> organizeMap(HashMap<String, Integer> unorganizedMap, Enum type){
 
-        List<Integer> organizeList = new ArrayList<>(unorganizedMap.values());
-        Collections.sort(organizeList);
+   // }
 
 
-        return organizeList;
-    }
+
+
 
 }
