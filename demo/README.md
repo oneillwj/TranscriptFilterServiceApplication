@@ -22,3 +22,7 @@ If word already exists in hashmap go to next.
         {
             "text": "sdnfuiv fsjvbui rtgnerkjga"
         }  
+        
+   Create React that will communicate with backend Spring App to get data
+   & show data using graphs. 
+        This will be where the user can request the specified organization option. 

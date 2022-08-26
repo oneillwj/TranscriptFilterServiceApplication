@@ -10,9 +10,6 @@ import java.util.*;
 @Service
 public class TranscriptService {
 
-    @Autowired
-    private OrganizationUtil organizationUtil;
-
 
     public HashMap<String, Integer> transcribe(TranscriptRequest transcriptRequest){
         /*creates an array of Strings and sets it equal to the transcriptRequest
